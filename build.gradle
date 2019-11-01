@@ -46,4 +46,7 @@ dependencies {
     compile group: 'com.typesafe.akka', name: 'akka-stream_2.12', version: '2.5.23'
     // https://mvnrepository.com/artifact/org.scalatest/scalatest
     testCompile group: 'org.scalatest', name: 'scalatest_2.12', version: '3.0.8'
+    // https://mvnrepository.com/artifact/ch.megard/akka-http-cors
+    compile group: 'ch.megard', name: 'akka-http-cors_2.12', version: '0.4.1'
+
 }

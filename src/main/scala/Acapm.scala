@@ -5,12 +5,13 @@ import akka.http.scaladsl.Http.ServerBinding
 import akka.stream.ActorMaterializer
 import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.Logger
+import helpers.{CORSHandler}
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future, Promise}
 class Acapm
 
-object Acapm extends App with Paths {
+object Acapm extends App with Paths{
   val logger = Logger[Acapm]
 
   val conf = ConfigFactory.load()
