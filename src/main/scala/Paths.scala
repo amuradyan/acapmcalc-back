@@ -9,17 +9,21 @@ trait Paths {
     pathSingleSlash {
       complete("It's alive!!!")
     } ~
-      pathPrefix("expressions") {
+      pathPrefix("values") {
         pathEnd {
-          post {
-            entity(as[String]) {
+          get {
+            parameters('expression.as[String]) {
               expression => {
-                if (expression.length > 0) {
-                  val res = Evaluator.eval(expression)
-                  complete(HttpResponse(StatusCodes.Created, entity = HttpEntity(contentType, res.toString)))
+                val trimmedExpression = expression.replaceAll(" ", "")
+                if (trimmedExpression.length > 0) {
+                  val res = Evaluator.eval(trimmedExpression)
+                  res match {
+                    case Some(value) => complete(HttpResponse(StatusCodes.OK, entity = HttpEntity(contentType, value.toString)))
+                    case None => complete(HttpResponse(StatusCodes.InternalServerError, entity = HttpEntity(contentType, "Something went terribly wrong")))
+                  }
                 }
                 else {
-                  complete(HttpResponse(StatusCodes.UnprocessableEntity, entity = HttpEntity(contentType, "Invalid username/password")))
+                  complete(HttpResponse(StatusCodes.UnprocessableEntity, entity = HttpEntity(contentType, "The expression is invalid")))
                 }
               }
             }
