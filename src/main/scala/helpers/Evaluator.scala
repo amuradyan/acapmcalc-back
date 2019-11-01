@@ -8,7 +8,7 @@ object Evaluator {
     evaluate(normalizedExpression.split("\\s").toList)
   }
 
-  private def normalize(expression: String): String = {
+  def normalize(expression: String): String = {
     expression.
       replaceAll(" ", "").
       replaceAll("\\+", " + ").
